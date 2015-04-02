@@ -1,0 +1,60 @@
+﻿
+@model YYPatient.Models.DeleteRoleViewModels
+
+@{
+    ViewBag.Title = "Delete Role";
+    string roleName = Model.roleName;
+    
+}
+
+<h2>@ViewBag.Title : @roleName</h2>
+
+<table class="table">
+    @if (Model.roleUserList != null)
+    {
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                EMail
+            </th>
+            <th></th>
+        </tr>
+
+        foreach (var item in Model.roleUserList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+            </tr>
+
+        }
+    }
+</table>
+
+<br/>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.roleName)
+    <div class="row col-md-6">
+        <div class="form-group">
+            @Html.Label("Remove all the users from the role before deleting it", new { @class = "col-md-10 control-label" })
+            @Html.CheckBoxFor(model => model.bRemove, htmlAttributes: new { @class = "pull-left" })
+            @*<input id="remove" type="checkbox" name="remove" value="@Model.bRemove">
+        <label  class="control-label col-md-10 pull-left">Remove all the users from the role before deleting it.</label>*@
+
+        </div>
+    </div>
+    <hr/>
+    <div>
+          <input type="submit" value="Delete" class="btn btn-primary pull-right" />
+    </div>
+
+}
+
+<hr />

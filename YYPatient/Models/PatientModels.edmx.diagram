@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="451be5d5bd8445b085e30f67c1d31e86" Name="Diagram1">
+        <EntityTypeShape EntityType="patientSQLModel.category" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.concentrationUnit" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.country" Width="1.5" PointX="3.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.diagnosi" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.dispensingUnit" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.medication" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.medicationType" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.patient" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.patientMedication" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.patientTreatment" Width="1.5" PointX="10.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.province" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.sysdiagram" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="patientSQLModel.treatment" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="patientSQLModel.diagnosis_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_medication_concentrationUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_province_country" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.treatment_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_medication_dispensingUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_medication_medicationType" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_patientMedication_medication" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.patient_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.patientTreatment_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.FK_patientMedication_patientTreatment" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.patientTreatment_FK01" ManuallyRouted="false" />
+        <AssociationConnector Association="patientSQLModel.treatmentMedication" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

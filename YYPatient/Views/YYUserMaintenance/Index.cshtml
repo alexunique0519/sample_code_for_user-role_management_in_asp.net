@@ -1,0 +1,67 @@
+﻿@model IEnumerable<YYPatient.Models.UserViewModels>
+
+
+@{
+    ViewBag.Title = "Users Listing";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("Create New User", "Register", "Account")
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isLockout)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAuthenticatedLocally)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isLockout)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.isAuthenticatedLocally)
+            </td>
+            <td>
+               
+                @if(item.isLockout)
+                {
+                    @Html.ActionLink("Unlock", "changeStatus", new { id = item.userId, bLock = item.isLockout })
+                }
+                else
+                {
+                   @Html.ActionLink("Lock", "changeStatus", new { id = item.userId, bLock = item.isLockout })
+                }
+                @if(!item.isAdmin)
+                {
+                    @Html.ActionLink(" | Delete", "DeleteUser", new { id = item.userId })             
+                }              
+                @Html.ActionLink("| Reset Password", "ResetPassword", new { id = item.userId })    
+            </td>
+        </tr>
+    }
+
+</table>
+

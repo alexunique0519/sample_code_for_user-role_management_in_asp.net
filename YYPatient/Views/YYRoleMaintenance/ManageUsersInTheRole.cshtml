@@ -1,0 +1,65 @@
+﻿@model IEnumerable<YYPatient.Models.UserViewModels> 
+@{
+    ViewBag.Title = "Manage Users In The Role of " + ViewBag.roleName;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr/>
+
+@using (Html.BeginForm("AddUser", "YYRoleMaintenance", new { roleName = ViewBag.roleName }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row" >
+        <div class="form-horizontal">
+            <div class="form-group col-md-6">
+                @Html.Label("User Not In Role", htmlAttributes: new { @class = "control-label col-md-4 pull-left" })
+                <div class="col-md-8">
+                    @Html.DropDownList("userNotInRoleList", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-2">
+                <input type="submit" value="Add User" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            User Name
+        </th>
+        <th>
+            Email
+        </th>
+
+        <th></th>
+    </tr>
+
+    @if(Model != null)
+    { 
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                @if (item.userId != ViewBag.currentUserId)
+                {
+                    <td>
+                        @Html.ActionLink("Remove from the role", "RemoveUser", new { userName = item.userName, roleName = ViewBag.roleName })
+                    </td>
+                }
+            </tr>
+        }
+    }
+
+</table>
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<YYPatient.Models.RoleViewModels>
+
+@{
+    ViewBag.Title = "Roles Listing";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Create", "YYRoleMaintenance", FormMethod.Post))
+{
+    <h4>Create New Role</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="row">
+    
+    <div class="form-group col-md-6">
+        @Html.Label("Role Name", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.TextBox("RoleName", "",  htmlAttributes : new { @class = "form-control" } )
+        </div>
+    </div>
+    
+    <div class="form-group col-md-2">
+        <div class="col-md-pull-0">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+    </div>
+}
+
+
+<br />
+
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.roleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roleName)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roleName)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { roleName = item.roleName }) |
+                                                                                                                 
+                    @Html.ActionLink("Manage User", "ManageUsersInTheRole", new { roleName = item.roleName })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

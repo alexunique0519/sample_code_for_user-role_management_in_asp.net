@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="patientSQLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="concentrationUnit">
+    <Key>
+      <PropertyRef Name="concentrationCode" />
+    </Key>
+    <Property Name="concentrationCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="country">
+    <Key>
+      <PropertyRef Name="countryCode" />
+    </Key>
+    <Property Name="countryCode" Type="nchar" MaxLength="2" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="postalPattern" Type="nvarchar" MaxLength="120" />
+    <Property Name="phonePattern" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="diagnosis">
+    <Key>
+      <PropertyRef Name="diagnosisId" />
+    </Key>
+    <Property Name="diagnosisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="categoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="dispensingUnit">
+    <Key>
+      <PropertyRef Name="dispensingCode" />
+    </Key>
+    <Property Name="dispensingCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="medication">
+    <Key>
+      <PropertyRef Name="din" />
+    </Key>
+    <Property Name="din" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="20" />
+    <Property Name="image" Type="nvarchar" MaxLength="30" />
+    <Property Name="medicationTypeId" Type="int" Nullable="false" />
+    <Property Name="dispensingCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="concentration" Type="float" Nullable="false" />
+    <Property Name="concentrationCode" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="medicationType">
+    <Key>
+      <PropertyRef Name="medicationTypeId" />
+    </Key>
+    <Property Name="medicationTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="patientId" />
+    </Key>
+    <Property Name="patientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="address" Type="nvarchar" MaxLength="30" />
+    <Property Name="city" Type="nvarchar" MaxLength="30" />
+    <Property Name="provinceCode" Type="nchar" MaxLength="2" />
+    <Property Name="postalCode" Type="nvarchar" MaxLength="15" />
+    <Property Name="OHIP" Type="nvarchar" MaxLength="12" />
+    <Property Name="dateOfBirth" Type="datetime" />
+    <Property Name="deceased" Type="bit" Nullable="false" />
+    <Property Name="dateOfDeath" Type="datetime" />
+    <Property Name="homePhone" Type="nvarchar" MaxLength="25" />
+    <Property Name="gender" Type="nvarchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="patientMedication">
+    <Key>
+      <PropertyRef Name="patientMedicationId" />
+    </Key>
+    <Property Name="patientMedicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="patientTreatmentId" Type="int" Nullable="false" />
+    <Property Name="din" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="dose" Type="float" />
+    <Property Name="frequency" Type="int" />
+    <Property Name="frequencyPeriod" Type="nvarchar" MaxLength="10" />
+    <Property Name="exactMinMax" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="patientTreatment">
+    <Key>
+      <PropertyRef Name="patientTreatmentId" />
+    </Key>
+    <Property Name="patientTreatmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="patientId" Type="int" />
+    <Property Name="treatmentId" Type="int" />
+    <Property Name="datePrescribed" Type="datetime" Nullable="false" />
+    <Property Name="comments" Type="ntext" />
+  </EntityType>
+  <EntityType Name="province">
+    <Key>
+      <PropertyRef Name="provinceCode" />
+    </Key>
+    <Property Name="provinceCode" Type="nchar" MaxLength="2" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="countryCode" Type="nchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="treatment">
+    <Key>
+      <PropertyRef Name="treatmentId" />
+    </Key>
+    <Property Name="treatmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="description" Type="ntext" />
+    <Property Name="diagnosisId" Type="int" />
+  </EntityType>
+  <EntityType Name="treatmentMedication">
+    <Key>
+      <PropertyRef Name="treatmentId" />
+      <PropertyRef Name="din" />
+    </Key>
+    <Property Name="treatmentId" Type="int" Nullable="false" />
+    <Property Name="din" Type="nvarchar" MaxLength="8" Nullable="false" />
+  </EntityType>
+  <Association Name="diagnosis_FK00">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="diagnosis" Type="Self.diagnosis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="diagnosis">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_medication_concentrationUnit">
+    <End Role="concentrationUnit" Type="Self.concentrationUnit" Multiplicity="0..1" />
+    <End Role="medication" Type="Self.medication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="concentrationUnit">
+        <PropertyRef Name="concentrationCode" />
+      </Principal>
+      <Dependent Role="medication">
+        <PropertyRef Name="concentrationCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_medication_dispensingUnit">
+    <End Role="dispensingUnit" Type="Self.dispensingUnit" Multiplicity="0..1" />
+    <End Role="medication" Type="Self.medication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dispensingUnit">
+        <PropertyRef Name="dispensingCode" />
+      </Principal>
+      <Dependent Role="medication">
+        <PropertyRef Name="dispensingCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_medication_medicationType">
+    <End Role="medicationType" Type="Self.medicationType" Multiplicity="1" />
+    <End Role="medication" Type="Self.medication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="medicationType">
+        <PropertyRef Name="medicationTypeId" />
+      </Principal>
+      <Dependent Role="medication">
+        <PropertyRef Name="medicationTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_patientMedication_medication">
+    <End Role="medication" Type="Self.medication" Multiplicity="1" />
+    <End Role="patientMedication" Type="Self.patientMedication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="medication">
+        <PropertyRef Name="din" />
+      </Principal>
+      <Dependent Role="patientMedication">
+        <PropertyRef Name="din" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_patientMedication_patientTreatment">
+    <End Role="patientTreatment" Type="Self.patientTreatment" Multiplicity="1" />
+    <End Role="patientMedication" Type="Self.patientMedication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patientTreatment">
+        <PropertyRef Name="patientTreatmentId" />
+      </Principal>
+      <Dependent Role="patientMedication">
+        <PropertyRef Name="patientTreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_province_country">
+    <End Role="country" Type="Self.country" Multiplicity="0..1" />
+    <End Role="province" Type="Self.province" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="country">
+        <PropertyRef Name="countryCode" />
+      </Principal>
+      <Dependent Role="province">
+        <PropertyRef Name="countryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_treatmentMedication_medication">
+    <End Role="medication" Type="Self.medication" Multiplicity="1" />
+    <End Role="treatmentMedication" Type="Self.treatmentMedication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="medication">
+        <PropertyRef Name="din" />
+      </Principal>
+      <Dependent Role="treatmentMedication">
+        <PropertyRef Name="din" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_treatmentMedication_treatment">
+    <End Role="treatment" Type="Self.treatment" Multiplicity="1" />
+    <End Role="treatmentMedication" Type="Self.treatmentMedication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="treatment">
+        <PropertyRef Name="treatmentId" />
+      </Principal>
+      <Dependent Role="treatmentMedication">
+        <PropertyRef Name="treatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="patient_FK00">
+    <End Role="province" Type="Self.province" Multiplicity="0..1" />
+    <End Role="patient" Type="Self.patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="province">
+        <PropertyRef Name="provinceCode" />
+      </Principal>
+      <Dependent Role="patient">
+        <PropertyRef Name="provinceCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="patientTreatment_FK00">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="patientTreatment" Type="Self.patientTreatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="patientId" />
+      </Principal>
+      <Dependent Role="patientTreatment">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="patientTreatment_FK01">
+    <End Role="treatment" Type="Self.treatment" Multiplicity="0..1" />
+    <End Role="patientTreatment" Type="Self.patientTreatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="treatment">
+        <PropertyRef Name="treatmentId" />
+      </Principal>
+      <Dependent Role="patientTreatment">
+        <PropertyRef Name="treatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="treatment_FK00">
+    <End Role="diagnosis" Type="Self.diagnosis" Multiplicity="0..1" />
+    <End Role="treatment" Type="Self.treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="diagnosis">
+        <PropertyRef Name="diagnosisId" />
+      </Principal>
+      <Dependent Role="treatment">
+        <PropertyRef Name="diagnosisId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="patientSQLModelStoreContainer">
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="concentrationUnit" EntityType="Self.concentrationUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="country" EntityType="Self.country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="diagnosis" EntityType="Self.diagnosis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dispensingUnit" EntityType="Self.dispensingUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="medication" EntityType="Self.medication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="medicationType" EntityType="Self.medicationType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="patient" EntityType="Self.patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="patientMedication" EntityType="Self.patientMedication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="patientTreatment" EntityType="Self.patientTreatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="province" EntityType="Self.province" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="treatment" EntityType="Self.treatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="treatmentMedication" EntityType="Self.treatmentMedication" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="diagnosis_FK00" Association="Self.diagnosis_FK00">
+      <End Role="category" EntitySet="category" />
+      <End Role="diagnosis" EntitySet="diagnosis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_medication_concentrationUnit" Association="Self.FK_medication_concentrationUnit">
+      <End Role="concentrationUnit" EntitySet="concentrationUnit" />
+      <End Role="medication" EntitySet="medication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_medication_dispensingUnit" Association="Self.FK_medication_dispensingUnit">
+      <End Role="dispensingUnit" EntitySet="dispensingUnit" />
+      <End Role="medication" EntitySet="medication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_medication_medicationType" Association="Self.FK_medication_medicationType">
+      <End Role="medicationType" EntitySet="medicationType" />
+      <End Role="medication" EntitySet="medication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_patientMedication_medication" Association="Self.FK_patientMedication_medication">
+      <End Role="medication" EntitySet="medication" />
+      <End Role="patientMedication" EntitySet="patientMedication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_patientMedication_patientTreatment" Association="Self.FK_patientMedication_patientTreatment">
+      <End Role="patientTreatment" EntitySet="patientTreatment" />
+      <End Role="patientMedication" EntitySet="patientMedication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_province_country" Association="Self.FK_province_country">
+      <End Role="country" EntitySet="country" />
+      <End Role="province" EntitySet="province" />
+    </AssociationSet>
+    <AssociationSet Name="FK_treatmentMedication_medication" Association="Self.FK_treatmentMedication_medication">
+      <End Role="medication" EntitySet="medication" />
+      <End Role="treatmentMedication" EntitySet="treatmentMedication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_treatmentMedication_treatment" Association="Self.FK_treatmentMedication_treatment">
+      <End Role="treatment" EntitySet="treatment" />
+      <End Role="treatmentMedication" EntitySet="treatmentMedication" />
+    </AssociationSet>
+    <AssociationSet Name="patient_FK00" Association="Self.patient_FK00">
+      <End Role="province" EntitySet="province" />
+      <End Role="patient" EntitySet="patient" />
+    </AssociationSet>
+    <AssociationSet Name="patientTreatment_FK00" Association="Self.patientTreatment_FK00">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="patientTreatment" EntitySet="patientTreatment" />
+    </AssociationSet>
+    <AssociationSet Name="patientTreatment_FK01" Association="Self.patientTreatment_FK01">
+      <End Role="treatment" EntitySet="treatment" />
+      <End Role="patientTreatment" EntitySet="patientTreatment" />
+    </AssociationSet>
+    <AssociationSet Name="treatment_FK00" Association="Self.treatment_FK00">
+      <End Role="diagnosis" EntitySet="diagnosis" />
+      <End Role="treatment" EntitySet="treatment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
